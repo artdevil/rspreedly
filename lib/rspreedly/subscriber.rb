@@ -132,7 +132,7 @@ module RSpreedly
     # DELETE /api/v4/[short site name]/subscribers/[subscriber id].xml
     def destroy
       begin
-        !! api_request(:delete, "/subscribers/#{self.customer_id}.xml")
+        !! api_request(:delete, "/subscribers/#{self.customer_id.to_i}.xml")
       rescue RSpreedly::Error::NotFound
         nil
       end

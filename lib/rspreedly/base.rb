@@ -5,7 +5,7 @@ module RSpreedly
   class Base
     include HTTParty
     format :xml
-    base_uri "https://spreedly.com/api/v4"
+    base_uri "https://subs.pinpayments.com/api/v4"
 
     attr_reader :errors
 
@@ -60,15 +60,7 @@ module RSpreedly
       begin
         self.class.api_request(type, path, options)
       rescue RSpreedly::Error::Base => e
-        if e.response.is_a?(Hash)
-          if e.response.has_key?("errors")
-            @errors = [*e.response["errors"]["error"]]
-          else
-            @errors = [e.response.body]
-          end      
-        else
-          @errors = [e.message]
-        end
+        @errors = {e.response.code => e.message}
         raise
       end
     end
