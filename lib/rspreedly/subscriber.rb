@@ -185,6 +185,12 @@ module RSpreedly
       self.attributes = result["subscriber"]
       true
     end
+    
+    def allow_another_setup_fee
+      result = api_request(:post, "/subscribers/#{self.customer_id}/allow_setup_fee.xml")
+      self.attributes = result["subscriber"]
+      true
+    end
 
     def grant_lifetime_subscription(feature_level)
       subscription = LifetimeComplimentarySubscription.new(:feature_level => feature_level)
